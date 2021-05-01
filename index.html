@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>js on steriods</title>
+    <link rel="stylesheet" href="
+    style.css">
+    <Script src="static.js"></SCript>
+</head>
+
+<body>
+    <div class="container-1">
+
+    </div>
+    <h2>Challange 1: your age in Days</h2>
+    <div class="flexbox-container-1">
+        <div> <button class="btn btn-primary" onclick="ageInDays()">Click Me</button></div>
+        <div><button class="btn btn-danger" onclick="result()">Reset</button></div>
+    </div>
+    <div class="flexbox-container-1">
+        <div id="flexbox-result">
+
+        </div>
+    </div>
+    </div>
+    <div class="container-2">
+        <h2>Challange: Cat Generator</h2>
+        <button class="btn btn-success" onclick="generateCat()">Generate Cat</button>
+        <div class="flexbox-container-2" id="flex-catgen">
+
+        </div>
+    </div>
+    <div class="container-3">
+        <h2>Challange 3- Rock Paper Scessior</h2>
+        <div class="flex-box-rps" id="flex-box-rps-div">
+            <img src="https://yt3.ggpht.com/ytc/AAUvwnh5h0bxfupQbFgeNTb0OuGHFA03b5_UfIa7o5lYcA=s900-c-k-c0x00ffffff-no-rj"
+                id="rock" height="150" onclick="rpsGame(this)" width="150">
+            <img src="https://img.freepik.com/free-photo/design-space-paper-textured-background_53876-42312.jpg?size=626&ext=jpg"
+                height="150" onclick="rpsGame(this)" width="150" id="paper">
+            <img src="https://thumbs.dreamstime.com/b/scissors-7969981.jpg" alt="" onclick="rpsGame(this)" id="scissor"
+                height=:150" width="150">
+        </div>
+    </div>
+    <div class="container-4">
+        <h2 id="change-my-color">Change the color of all buttons</h2>
+        <div class="flex-box-pick-color">
+            <form action="">
+                <select name="backdrop" id="background" onchange="buttonColorChange(this)">
+                    <option value="random">Random</option>
+                    <option value="red">Red</option>
+                    <option value="green">Green</option>
+                    <option value="reset">Reset</option>
+                </select>
+            </form>
+            <button class="btn btn-primary">weee</button>
+            <button class="btn btn-danger">Yahoo!</button>
+            <button class="btn btn-warning">Google!</button>
+            <button class="btn btn-success">Facebook!</button>
+        </div>
+    </div>
+    <script src="static.js"></script>
+</body>
+
+</html>
